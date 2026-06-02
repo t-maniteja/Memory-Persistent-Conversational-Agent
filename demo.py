@@ -3,7 +3,7 @@
 Automated demo: shows memory persisting and being recalled across two sessions.
 
 Session 1 — user establishes facts, preferences, and a decision.
-Session 2 — fresh agent instance, same DB, different session ID.
+Session 2 — fresh agent instance, same DB, different session ID. 
             The agent should reflect what it learned in session 1 without being
             told again.
 
@@ -23,19 +23,62 @@ from agent import Agent
 DEMO_DB = "demo_memories.db"
 
 SESSION_1_MESSAGES = [
-    "Hey! Quick context: I'm a senior Go engineer, 8 years in. Currently building a CLI tool "
-    "called 'flux' that manages Kubernetes deployments for my startup.",
-    "I really hate boilerplate and verbose code. Keep things idiomatic and concise — "
-    "no 6-line error checks when two will do.",
-    "We just decided to use SQLite for local state in flux rather than a full Postgres instance. "
-    "Performance requirements don't justify it at this stage.",
+    """
+I'm building a multiplayer AI-native IDE called Neander.
+
+The goal is to let business stakeholders and engineers collaborate in the same workspace.
+Instead of requirements moving through tickets and handoffs, we want business intent to flow directly into implementation.
+
+I'm especially interested in agent workflows that can translate product requirements into technical plans.
+""",
+
+    """
+One of my engineering principles is to optimize for iteration speed early.
+
+I usually avoid infrastructure complexity until there's evidence it's needed.
+I'd rather start with a simple system that everyone understands than prematurely optimize for scale.
+""",
+
+    """
+We recently debated Postgres versus SQLite for local workspace state.
+
+We chose SQLite because deployment simplicity and local-first reliability mattered more than horizontal scalability.
+If constraints change later, we'll migrate.
+""",
+
+    """
+I strongly prefer concise code and explicit data flow.
+
+When reviewing code, I usually reject abstractions that hide control flow or make debugging harder.
+""",
+
+    """
+A future feature we're considering is collaborative architecture planning.
+
+Multiple users and AI agents should be able to propose designs, critique tradeoffs, and converge on implementation plans together.
+"""
 ]
 
 SESSION_2_MESSAGES = [
-    "Hi there! Can you help me think about how to structure error handling in my project?",
-    "What's the best approach for local state persistence given our setup?",
-]
+    """
+How would you design error handling for a new feature in my product?
+""",
 
+    """
+What's a reasonable persistence strategy for workspace state?
+""",
+
+    """
+We're discussing how AI agents should participate in architecture reviews.
+Any thoughts?
+""",
+
+    """
+One of our engineers wants to introduce several layers of abstraction to reduce duplication.
+
+How would you evaluate that proposal?
+"""
+]
 SEPARATOR = "─" * 60
 
 
@@ -114,10 +157,14 @@ def main() -> None:
     print(f"\n{SEPARATOR}")
     print("WHAT TO OBSERVE")
     print(SEPARATOR)
-    print("  • Agent 2 knows you're a Go engineer without being told.")
-    print("  • It keeps error handling idiomatic and concise.")
-    print("  • When asked about persistence, it references the SQLite decision.")
-    print("  • It mentions 'flux' when contextually relevant.")
+
+    print("  • Agent remembers Neander and its collaborative IDE vision.")
+    print("  • It recalls the SQLite decision and the reasoning behind it.")
+    print("  • It adapts recommendations to a preference for simple systems.")
+    print("  • It remembers a dislike of unnecessary abstractions.")
+    print("  • It builds on previously discussed AI-agent collaboration ideas.")
+    print("  • It uses context from a previous session without conversation history.")
+
     print(f"\n  Demo DB: {DEMO_DB}  (delete to reset)")
     print(SEPARATOR)
 
